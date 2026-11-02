@@ -20,3 +20,7 @@ The project-specific scientific/technical ideas, contributions and claims must b
 `SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM`. Treat `TOKEN_VAZIO` as an explicit unknown rather than zero or false. Record before/after, test, observed result, rollback and next reversible action. `IMPLEMENTED_UNTESTED != PASS` and `claim_allowed=false` until a concrete evidence gate passes. No automatic merge or provider write.
 
 Baseline and scope: [PROVENANCE.json](PROVENANCE.json). Licenses: [LICENSE.md](LICENSE.md). Agent behavior: [AGENTS.md](AGENTS.md).
+
+## Federated evidence contract
+
+Read [FEDERATION_CONTRACT_V1.md](FEDERATION_CONTRACT_V1.md) and [FEDERATED_RECEIPT_V1.schema.json](FEDERATED_RECEIPT_V1.schema.json) for a public-safe schema and authority gates. These are draft specifications, **not** a deployed provider integration.
