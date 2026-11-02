@@ -17,6 +17,7 @@ process independently exported non-sensitive data, never bypass the DB access po
 | Module | Contract | Specialized action |
 | --- | --- | --- |
 | registry V1 (predecessor) | source_id + owner/purpose/class/retention | classify original source |
+| matrix_source_tenants | tenant_id + source_id + authority_ref | deny cross-tenant references before ingestion |
 | matrix_events | append-only event envelope | represent typed, reversible relationships |
 | matrix_validate_before_insert | BEFORE INSERT row trigger | class consistency, predecessor sequence, purpose metadata |
 | matrix_enqueue_after_insert | AFTER INSERT row trigger | insert transactional outbox pointer |
@@ -32,6 +33,10 @@ attempts, privileged DDL, or external provider access: configure scoped pgAudit,
 API logs and independent archival with lawful retention.
 
 ## Data minimization / child safeguarding
+
+Each source/tenant binding requires a separately reviewed authority reference. The
+event validator checks both source and target against the same tenant, but
+the authorization and authenticity of the binding **are not proved by SQL alone**.
 
 The event table contains **metadata only**: UUID references, keyed HMAC actor
 pseudonym, purpose code, legal-basis/policy references, class and evidence digest.
@@ -53,7 +58,8 @@ privacy data permanently undeletable. No publication bridge exists here.
 The script creates a `NOLOGIN` role but does **not** assign membership.
 No `anon` or `authenticated` table grants, policies or routines are added.
 All tables reside in the existing private schema, which must not be exposed in
-Supabase Data API. A vetted, authenticated backend policy decision point must
+Supabase Data API. Only a privileged, audited operator may establish source/tenant bindings.
+A vetted, authenticated backend policy decision point must
 bind actor, purpose, lawful basis and tenant *before* granting the ingestor
 role to a scoped service identity. Caller-provided event metadata is not verified
 identity by itself. RLS does not protect against table owners and BYPASSRLS roles;
