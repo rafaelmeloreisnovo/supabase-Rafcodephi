@@ -5,6 +5,8 @@
 
 # Supabase
 
+> **RAFCODE-Φ fork notice:** This repository is a fork of [supabase/supabase](https://github.com/supabase/supabase). The original Supabase project, upstream authorship and applicable licenses remain intact. Fork-specific governance and a bounded record of contributions live in [rafcodephi/README.md](rafcodephi/README.md), [rafcodephi/LICENSE.md](rafcodephi/LICENSE.md) and [rafcodephi/PROVENANCE.json](rafcodephi/PROVENANCE.json). Repository ownership is not evidence of authorship of inherited files.
+
 [Supabase](https://supabase.com) is the Postgres development platform. We're building the features of Firebase using enterprise-grade open source tools.
 
 - [x] Hosted Postgres Database. [Docs](https://supabase.com/docs/guides/database)

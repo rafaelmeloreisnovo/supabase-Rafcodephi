@@ -1,0 +1,84 @@
+{
+  "schema": "rafcodephi.provenance.v1",
+  "scope": "bounded-fork-governance-baseline",
+  "observation_date_utc": "2026-11-02",
+  "fork": {
+    "repository": "rafaelmeloreisnovo/supabase-Rafcodephi",
+    "upstream": "supabase/supabase",
+    "fork": true,
+    "default_branch": "master",
+    "baseline_commit": "86848fc036f08adf9e4de2fb31cd0ea398f7ce9d",
+    "baseline_tree": "f564361cba813ed428c842e6b4f8d1cae6850b61"
+  },
+  "license": {
+    "root": "LICENSE",
+    "spdx": "Apache-2.0",
+    "verified_upstream_blob_sha": "49ea124025275674563eeff03af0f653ca49fdc0",
+    "fork_blob_sha": "49ea124025275674563eeff03af0f653ca49fdc0",
+    "same_blob_verified": true
+  },
+  "baseline_verified_files": [
+    {
+      "path": "README.md",
+      "blob_sha": "163afeaf8ad8ee5d944e994becc27716431369f1",
+      "upstream_same_blob": true
+    },
+    {
+      "path": "AGENTS.md",
+      "blob_sha": "987634696d49e2e7f6a6e129606a75d189c91e5e",
+      "upstream_same_blob": true
+    },
+    {
+      "path": "LICENSE",
+      "blob_sha": "49ea124025275674563eeff03af0f653ca49fdc0",
+      "upstream_same_blob": true
+    },
+    {
+      "path": "package.json",
+      "blob_sha": "53c5e91aa9de0c6e8893f8b0a1ce3d63ace48a58",
+      "upstream_same_blob": true
+    }
+  ],
+  "change_scope": [
+    {
+      "path": "README.md",
+      "type": "additive fork notice",
+      "previous_blob_sha": "163afeaf8ad8ee5d944e994becc27716431369f1"
+    },
+    {
+      "path": "AGENTS.md",
+      "type": "append scoped routing pointer",
+      "previous_blob_sha": "987634696d49e2e7f6a6e129606a75d189c91e5e"
+    },
+    {
+      "path": "rafcodephi/README.md",
+      "type": "new documentation"
+    },
+    {
+      "path": "rafcodephi/AGENTS.md",
+      "type": "new scoped agent contract"
+    },
+    {
+      "path": "rafcodephi/LICENSE.md",
+      "type": "new licensing explanation"
+    },
+    {
+      "path": "rafcodephi/PROVENANCE.json",
+      "type": "new bounded baseline record"
+    }
+  ],
+  "identity": {
+    "project_steward": "Rafael Melo Reis / RAFCODE-Φ",
+    "originality_claim_for_inherited_files": "not_claimed",
+    "complete_authorship_audit": "TOKEN_VAZIO"
+  },
+  "execution": {
+    "provider_database_mutations": "NOT_RUN",
+    "full_monorepo_tests": "NOT_RUN",
+    "claim_allowed": false
+  },
+  "rollback": {
+    "method": "close draft PR without merge, or revert single governance commit if merged",
+    "baseline_commit": "86848fc036f08adf9e4de2fb31cd0ea398f7ce9d"
+  }
+}
