@@ -74,3 +74,7 @@ The skills in `.agents/skills/` are the source of truth for conventions. Load th
 ## Studio
 
 Before working on anything in `apps/studio`, read `apps/studio/AGENTS.md` if it isn't already in context — it maps Studio tasks to required skills and covers the TanStack Start migration rules.
+
+## RAFCODE-Φ fork-specific governance
+
+This repository is a fork of `supabase/supabase`. Preserve this upstream guidance and the root Apache-2.0 `LICENSE`. For files in `rafcodephi/**`, additionally read [rafcodephi/AGENTS.md](rafcodephi/AGENTS.md). Fork ownership does not establish original authorship of inherited code. Keep personal/private data, credentials, service-role keys and private Drive records out of this public repository. Do not merge, deploy, modify provider databases, or change RLS without scoped authority and evidence. See [rafcodephi/PROVENANCE.json](rafcodephi/PROVENANCE.json) for the bounded baseline.
