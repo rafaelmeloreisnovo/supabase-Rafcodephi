@@ -1,0 +1,68 @@
+{
+  "schema": "rafaelia.data_federation.v1",
+  "status": "DRAFT_HOLD",
+  "claim_allowed": false,
+  "owners": {
+    "index": "rafaelmeloreisnovo/Mapa",
+    "schema_producer": "rafaelmeloreisnovo/supabase-Rafcodephi",
+    "original_documents": "Google Drive",
+    "original_code": "GitHub producer repositories"
+  },
+  "classes": [
+    "PUBLIC_APPROVED",
+    "INTERNAL",
+    "CONFIDENTIAL",
+    "RESTRICTED",
+    "CHILD_SAFEGUARD",
+    "UNCLASSIFIED"
+  ],
+  "unknown": "TOKEN_VAZIO_AND_DENY",
+  "public_path": "approved sanitized snapshot only; map nodes edges chart points; no private locators",
+  "private_path": "unexposed schema for source pointers provenance lineage evidence approval and protected object index",
+  "mandatory_metadata": [
+    "source",
+    "exact_revision",
+    "owner",
+    "purpose",
+    "lawful_basis_or_not_applicable",
+    "rights_and_license",
+    "classification",
+    "retention",
+    "digest_or_token_vazio"
+  ],
+  "publication_gates": [
+    "independent human review",
+    "privacy and rights review",
+    "positive and negative RLS tests",
+    "grant verification",
+    "cache revocation test",
+    "backup restore verified"
+  ],
+  "deny": [
+    "implicit public import",
+    "token or secret replication",
+    "private data to public charts",
+    "autopublish",
+    "third-party access without lawful basis",
+    "auto migration",
+    "browser service role"
+  ],
+  "iso_nist": {
+    "ISO_IEC_27001": "security risk management",
+    "ISO_IEC_27701": "privacy management",
+    "ISO_8000": "data quality",
+    "ISO_9001": "quality process",
+    "NIST_SP_800_207": "zero trust",
+    "NIST_CSF_2_0": "governance and security cycle",
+    "ISO_501": "TOKEN_VAZIO_STANDARD_ID"
+  },
+  "provider_state": {
+    "projects": "two inactive on 2026-11-02",
+    "target": "TOKEN_VAZIO",
+    "activation": "NOT_RUN",
+    "data_migration": "NOT_RUN",
+    "rls_runtime_tests": "NOT_RUN"
+  },
+  "sigma": "DMAIC method only; no statistical Sigma-level claim",
+  "rollback": "close draft, no production mutation"
+}
