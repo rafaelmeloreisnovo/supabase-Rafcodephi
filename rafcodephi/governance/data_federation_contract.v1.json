@@ -1,0 +1,116 @@
+{
+  "schema": "rafaelia.data-federation-governance.v1",
+  "status": "PROPOSAL_DRAFT_HOLD",
+  "claim_allowed": false,
+  "source_revision": "2026-11-02",
+  "authority": {
+    "upstream_source": "supabase/supabase (third-party upstream; license retained)",
+    "schema_and_prototype": "rafaelmeloreisnovo/supabase-Rafcodephi/rafcodephi/governance",
+    "federation_route": "rafaelmeloreisnovo/Mapa",
+    "original_code": "respective GitHub producer repositories",
+    "original_documents": "Google Drive and authorized owner stores",
+    "operational_database": "BLOCKED_INACTIVE_PROVIDER_PROJECT"
+  },
+  "invariant": "SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM",
+  "classifications": [
+    "PUBLIC_APPROVED",
+    "INTERNAL",
+    "CONFIDENTIAL",
+    "RESTRICTED",
+    "CHILD_SAFEGUARD",
+    "UNCLASSIFIED"
+  ],
+  "default_classification": "UNCLASSIFIED",
+  "action_when_unknown": "DENY_AND_TOKEN_VAZIO",
+  "storage": {
+    "public": "Curated independent published snapshot with typed fields only; no original data or private source IDs",
+    "private": "Unexposed raf_private schema for metadata, typed lineage, receipts and approvals; no raw bodies in SQL tables",
+    "large_objects": "Private Supabase Storage bucket only after provider configuration and ACL/retention gate; originals remain at source until integrity verified",
+    "secrets": "External secret manager; never GitHub public files, client or Supabase rows"
+  },
+  "publication": {
+    "method": "separate review + promotion service, explicit snapshot by release",
+    "explicit_human_approval": true,
+    "independent_reviewer_required": true,
+    "legal_basis_and_rights_review_required": true,
+    "child_or_third_party_personal_data": "DENY_PUBLICATION",
+    "precision_policy": "Suppress small cells, location traces, identifier leakage and reconstruction by multiple charts",
+    "public_revocation": "new revocation event, invalidate cache/edge and snapshot status, retain private evidence under lawful retention",
+    "automatic_publication": false
+  },
+  "ingestion": {
+    "copy_by_default": false,
+    "discovery_scope": "bounded approved source refs and metadata only",
+    "initial_action": "inventory_without_payload",
+    "mandatory": [
+      "owner",
+      "purpose",
+      "lawful_basis_or_not_applicable",
+      "classification",
+      "source_revision",
+      "digest_or_TOKEN_VAZIO",
+      "retention_rule",
+      "processor_role",
+      "license",
+      "rights_to_share",
+      "rollback"
+    ],
+    "unsafe_migration_if_missing": "BLOCKED"
+  },
+  "access": {
+    "identity": "per-request authentication and authorization; MFA for privileged paths",
+    "client": "publishable key only; grants + RLS; never service role in browser",
+    "backend": "least privilege; separate ingestion, approval and publication capabilities",
+    "external_tokens": "PAT identifier is not proof of grant; no token replication or fallback"
+  },
+  "standards_intent": {
+    "DMAIC": "operational method, no statistical Six Sigma level",
+    "ISO_IEC_27001_2022": "security management and risk controls",
+    "ISO_IEC_27701_2025": "privacy management",
+    "ISO_8000_1_2022": "data quality",
+    "ISO_9001": "quality management review, formal compliance not asserted",
+    "NIST_SP_800_207": "zero trust principles",
+    "NIST_CSF_2_0": "govern, identify, protect, detect, respond, recover",
+    "RFC/IEEE": "apply only identified relevant technical standards; no blanket compliance assertion",
+    "ISO_501": "TOKEN_VAZIO_STANDARD_ID_AMBIGUOUS"
+  },
+  "provider": {
+    "projects_observed": "2 projects INACTIVE at 2026-11-02; specific target not selected",
+    "cost_approval": "TOKEN_VAZIO",
+    "provider_project_bound": "BLOCKED",
+    "schema_apply": "NOT_RUN",
+    "cross_provider_e2e": "NOT_RUN",
+    "data_migration": "NOT_RUN"
+  },
+  "gates": [
+    "provider project selection and budget/activation authorization",
+    "explicit source ownership and lawful purpose by dataset",
+    "DPIA/LIA or applicable privacy analysis and child-safeguarding review",
+    "private RLS plus grants plus exposed schema verification",
+    "positive and negative anon/authenticated tenant fixtures",
+    "dual-review publication and precise provenance hash/receipt",
+    "backup/restore tested and rollback evidence",
+    "no private source IDs or personal data in public map or chart output",
+    "independent review and exact-HEAD CI before merge"
+  ],
+  "metrics": {
+    "CTQ_provenance_coverage": "count verified source objects / eligible objects (baseline TOKEN_VAZIO)",
+    "CTQ_classification": "classified / inventoried (baseline TOKEN_VAZIO)",
+    "CTQ_public_leak": "number of unauthorized disclosure fixtures passing (target 0, not observed)",
+    "CTQ_reconstruction": "source->index->published snapshot exact hashes (baseline TOKEN_VAZIO)",
+    "CTQ_revocation": "time from revocation decision to inaccessible public API and caches (not measured)",
+    "CTQ_cost": "provider query and storage cost measured, not guessed"
+  },
+  "rollback": "close unmerged PR; for any future provider activation require separate tested data-safe migration/backup and compensating revocation plan",
+  "gaps": [
+    "provider active project",
+    "data owners and approved dataset",
+    "rights inventory",
+    "child-data scope",
+    "RLS runtime tests",
+    "licensed ISO clauses verification",
+    "public interface deployment",
+    "third-party lawful access authority"
+  ],
+  "receipt_state": "SOURCE_ONLY_NOT_EXECUTED"
+}
