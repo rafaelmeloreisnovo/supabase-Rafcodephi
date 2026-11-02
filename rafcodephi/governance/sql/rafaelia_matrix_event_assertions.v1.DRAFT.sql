@@ -7,13 +7,14 @@ declare
   t text;
   n integer;
 begin
-  if pg_catalog.to_regclass('raf_private.matrix_events') is null
+  if pg_catalog.to_regclass('raf_private.matrix_source_tenants') is null
+     or pg_catalog.to_regclass('raf_private.matrix_events') is null
      or pg_catalog.to_regclass('raf_private.matrix_event_outbox') is null
      or pg_catalog.to_regclass('raf_private.source_registry') is null then
     raise exception 'missing approved predecessor or event structures';
   end if;
 
-  foreach t in array array['matrix_events','matrix_event_outbox'] loop
+  foreach t in array array['matrix_source_tenants','matrix_events','matrix_event_outbox'] loop
     if not exists (
       select 1 from pg_catalog.pg_class c
       join pg_catalog.pg_namespace ns on ns.oid = c.relnamespace
