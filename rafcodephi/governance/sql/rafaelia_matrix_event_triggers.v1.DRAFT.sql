@@ -7,6 +7,17 @@
 
 begin;
 
+-- Administrative source/tenant binding: a valid foreign key does NOT by itself
+-- prove that a source is authorized for the caller's domain.
+-- No runtime/client access to this mapping is granted by this proposal.
+create table raf_private.matrix_source_tenants (
+  tenant_id uuid not null,
+  source_id uuid not null references raf_private.source_registry(source_id),
+  admitted_at timestamptz not null default clock_timestamp(),
+  authority_ref text not null check (length(authority_ref) between 8 and 160),
+  primary key (tenant_id, source_id)
+);
+
 create table raf_private.matrix_events (
   event_id uuid primary key,
   tenant_id uuid not null,
@@ -59,10 +70,12 @@ begin
 end
 $role$;
 
-revoke all on raf_private.matrix_events, raf_private.matrix_event_outbox
+revoke all on raf_private.matrix_source_tenants,
+  raf_private.matrix_events, raf_private.matrix_event_outbox
   from public, anon, authenticated;
 revoke all on schema raf_private from public, anon, authenticated;
 
+alter table raf_private.matrix_source_tenants enable row level security;
 alter table raf_private.matrix_events enable row level security;
 alter table raf_private.matrix_event_outbox enable row level security;
 
@@ -88,7 +101,9 @@ begin
     pg_catalog.hashtextextended(new.tenant_id::text || ':' || new.stream_id::text, 0)
   );
   select s.access_class into v_class
-    from raf_private.source_registry s where s.source_id = new.source_id;
+    from raf_private.source_registry s
+    join raf_private.matrix_source_tenants b on b.source_id = s.source_id
+    where s.source_id = new.source_id and b.tenant_id = new.tenant_id;
   if not found or new.access_class is distinct from v_class then
     raise exception 'source classification missing or mismatched'
       using errcode = '23514';
@@ -98,7 +113,8 @@ begin
   -- lower the target's classification (strict equality in this pilot).
   if new.target_source_id is not null and not exists (
     select 1 from raf_private.source_registry s
-     where s.source_id = new.target_source_id
+    join raf_private.matrix_source_tenants b on b.source_id = s.source_id
+     where s.source_id = new.target_source_id and b.tenant_id = new.tenant_id
        and s.access_class = new.access_class
   ) then
     raise exception 'cross-classification link denied'
