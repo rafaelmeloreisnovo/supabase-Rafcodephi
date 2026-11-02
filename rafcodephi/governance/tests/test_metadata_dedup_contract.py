@@ -43,6 +43,15 @@ class DedupReferenceModel(unittest.TestCase):
         self.assertEqual(self.db.execute("SELECT count(*) FROM entities").fetchone()[0], 2)
         self.assertEqual(self.db.execute("SELECT count(*) FROM occurrences").fetchone()[0], 3)
 
+    def test_legacy_arxiv_categories_are_distinct_stable_ids(self):
+        # arXiv identifiers can also have legacy category prefixes.
+        rows = [("math/9508209", "folder_A"), ("math/9508209", "folder_B"),
+                ("quant-ph/0406196", "folder_B")]
+        self.ingest(rows)
+        self.ingest(rows)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM entities").fetchone()[0], 2)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM occurrences").fetchone()[0], 3)
+
     def test_orphan_reference_is_rejected(self):
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute("""INSERT INTO occurrences
