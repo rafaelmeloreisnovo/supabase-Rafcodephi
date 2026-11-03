@@ -106,7 +106,7 @@ BEGIN
     RAISE EXCEPTION 'DELETE allowed';
   EXCEPTION WHEN SQLSTATE '55000' THEN passed:=passed+1; END;
   BEGIN
-    TRUNCATE raf_private.github_tree_scan_receipts_v1;
+    TRUNCATE raf_private.github_tree_entries_v1;
     RAISE EXCEPTION 'TRUNCATE allowed';
   EXCEPTION WHEN SQLSTATE '55000' THEN passed:=passed+1; END;
 
