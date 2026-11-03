@@ -170,6 +170,33 @@ begin
 end;
 $$;
 
+create or replace function raf_private.reject_edge_event_mismatch()
+returns trigger
+language plpgsql
+as $
+declare
+  event_project uuid;
+  event_related uuid;
+begin
+  if NEW.relation = 'CONTAINS' then
+    select e.project_id, e.related_project_id
+      into event_project, event_related
+      from raf_private.custody_events e
+     where e.event_id = NEW.event_id;
+
+    if event_project is distinct from NEW.child_project_id
+       or event_related is distinct from NEW.parent_project_id then
+      raise exception 'provenance_edge_rejected: event must identify child project and related parent';
+    end if;
+  end if;
+  return NEW;
+end;
+$;
+
+create trigger project_edges_event_alignment
+before insert on raf_private.project_edges
+for each row execute function raf_private.reject_edge_event_mismatch();
+
 create trigger project_edges_no_cycle
 before insert on raf_private.project_edges
 for each row execute function raf_private.reject_project_cycle();
