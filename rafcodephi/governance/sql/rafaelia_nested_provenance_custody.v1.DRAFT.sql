@@ -173,7 +173,7 @@ $$;
 create or replace function raf_private.reject_edge_event_mismatch()
 returns trigger
 language plpgsql
-as $
+as $$
 declare
   event_project uuid;
   event_related uuid;
@@ -191,7 +191,7 @@ begin
   end if;
   return NEW;
 end;
-$;
+$$;
 
 create trigger project_edges_event_alignment
 before insert on raf_private.project_edges
