@@ -1,4 +1,7 @@
 # RAFAELIA Ω — Federated data governance for Supabase (review candidate)
+## Reconstruction module
+
+[Private reconstruction links](RECONSTRUCTION_LINKS_V1.md) provides source-to-execution queries, evidence boundaries, and transactional tests. The proposal status below describes the original federation design; provider deployment and data coverage are recorded separately in private module receipts.
 
 Status: PROPOSAL_DRAFT_HOLD. Source artifacts only. No database, RLS, Storage or production data were modified. Public repository: never paste private project IDs, locations, names of children, secret keys, private Drive content, or allegations about individuals.
 
