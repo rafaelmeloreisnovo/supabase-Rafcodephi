@@ -13,7 +13,7 @@ CREATE TABLE raf_private.drive_cloud_selection_intents_v1 (
         CHECK (provider = 'GOOGLE_DRIVE'),
     folder_id text NOT NULL
         CHECK (folder_id ~ '^[A-Za-z0-9_-]{10,256}$'),
-    folder_sha256 text NOT NULL CHECK (folder_sha256 ~ '^[0-9a-f]{64}
+    folder_sha256 text NOT NULL CHECK (folder_sha256 ~ '^[0-9a-f]{64}$'),
     selection_status text NOT NULL DEFAULT 'BLOCKED_GOOGLE_OAUTH'
         CHECK (selection_status = 'BLOCKED_GOOGLE_OAUTH'),
     scope text NOT NULL DEFAULT 'PRIVATE_METADATA_ONLY'
