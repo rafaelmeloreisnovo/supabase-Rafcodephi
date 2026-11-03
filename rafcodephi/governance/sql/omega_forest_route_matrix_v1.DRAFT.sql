@@ -1,7 +1,7 @@
 -- RAFAELIA Ω | SQL source snapshot from deployed Supabase migration 20261103080004.
 -- REVIEW ONLY / existing deployed view: do not replay on production without checking drift.
 -- Private security_invoker projection: no source duplication, no semantic claim promotion.
--- Source of truth: Supabase project ehwltgfrvbkmjqjjfoqn migration rafaelia_omega_forest_route_matrix_v1.
+-- Source of truth: private Supabase provider migration rafaelia_omega_forest_route_matrix_v1.
 CREATE VIEW raf_private.omega_forest_route_matrix_v1 WITH (security_invoker = true) AS
  WITH forest AS (
          SELECT 'mapa'::text AS forest,
@@ -71,5 +71,5 @@ CREATE VIEW raf_private.omega_forest_route_matrix_v1 WITH (security_invoker = tr
    FROM forest;
 REVOKE ALL ON TABLE raf_private.omega_forest_route_matrix_v1 FROM PUBLIC, anon, authenticated;
 COMMENT ON VIEW raf_private.omega_forest_route_matrix_v1 IS 'Private metadata-only 40-route projection of existing Mapa/omega forests; L9 categories are candidates; mathematical operators need domains; claim_allowed=false.';
--- Readback: 32 Mapa + 8 Omega routes, 40 distinct route keys, 32 O / 14 T / 4 L candidates, 7 DERIVES_FROM; anon/auth deny; 0 claims.
+-- Historical scoped readback at migration time: 32 Mapa + 8 Omega routes, 40 distinct keys, 32 O / 14 T / 4 L candidates, 7 DERIVES_FROM; anon/auth deny; 0 claims. Fresh values require provider readback.
 -- GAPS: direct REST API negative canary and independent review NOT_RUN; mathematical antiderivative and polynomial TOKEN_VAZIO.
