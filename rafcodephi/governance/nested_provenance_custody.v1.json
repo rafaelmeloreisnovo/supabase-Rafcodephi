@@ -1,0 +1,100 @@
+{
+  "schema": "rafaelia.nested-provenance-custody.v1",
+  "status": "PROPOSAL_DRAFT_HOLD",
+  "claim_allowed": false,
+  "source_revision": "2026-11-03",
+  "authority": {
+    "schema_candidate": "rafaelmeloreisnovo/supabase-Rafcodephi/rafcodephi/governance",
+    "route_and_current_state": "rafaelmeloreisnovo/Mapa",
+    "documentary_receipts": "Google Drive authorized owner stores",
+    "scientific_references": "alphaXiv library",
+    "original_implementation": "respective producer repository",
+    "operational_database": "BLOCKED_INACTIVE_PROVIDER_PROJECT"
+  },
+  "purpose": "Record nested project containment and reconstruct prior names, dates, times, revisions, hashes and custody events without overwriting historical observations.",
+  "invariants": [
+    "SOURCE != ARTIFACT != EXECUTION != EVIDENCE != CLAIM",
+    "TOKEN_VAZIO != 0",
+    "append-only corrections use supersedes_event_id",
+    "historical edges are never updated or deleted",
+    "a hash is integrity evidence only when independently recomputed and securely retained"
+  ],
+  "model": {
+    "raf_private.project_registry": "immutable logical project identity and source locator",
+    "raf_private.custody_events": "append-only observations with source_name, source_created_at, source_updated_at, timezone, observed_at, recorded_at, revision, evidence_ref and hashes",
+    "raf_private.project_edges": "append-only typed relations; CONTAINS forms the nesting matrix",
+    "raf_private.project_ancestry": "security_invoker recursive read model for ancestry reconstruction"
+  },
+  "relationships": {
+    "CONTAINS": "parent project contains child project; cycle rejected",
+    "DERIVED_FROM": "artifact/project derived from another source",
+    "RELATED_TO": "non-causal typed relation"
+  },
+  "reconstruction": [
+    "read project_registry identities",
+    "read custody_events ordered by event_seq and recorded_at",
+    "read project_edges ordered by observed_at and recorded_at",
+    "walk project_ancestry recursively from child to ancestors",
+    "apply supersedes_event_id only to derive a current interpretation; preserve every predecessor"
+  ],
+  "temporal_fields": [
+    "source_created_at",
+    "source_updated_at",
+    "occurred_at",
+    "observed_at",
+    "recorded_at",
+    "source_timezone"
+  ],
+  "evidence_fields": [
+    "source_locator",
+    "source_revision",
+    "source_commit_sha",
+    "evidence_ref",
+    "content_sha256",
+    "previous_event_hash_sha256",
+    "event_hash_sha256"
+  ],
+  "safety": {
+    "private_schema": "revoked from public, anon and authenticated; RLS enabled; no client policies",
+    "mutation": "UPDATE and DELETE rejected by append-only trigger in the candidate",
+    "publication": "not part of this candidate; public release remains a separate reviewed sanitized snapshot",
+    "limits": [
+      "database owner or privileged provider access can bypass database triggers; external receipts remain required",
+      "event hash computation and independent recomputation are outside this SQL candidate",
+      "a Supabase row alone is not WORM storage or proof of human authorship",
+      "no provider execution, backup/restore, RLS E2E or performance result has been observed"
+    ]
+  },
+  "gates": [
+    "select one active provider project and authorize cost",
+    "backup and restore drill",
+    "apply only in isolated database",
+    "test positive and negative anonymous/authenticated access",
+    "test cycle rejection, parent-event mismatch, supersession and rollback",
+    "run security and performance advisors",
+    "independent review and exact-head CI",
+    "only then consider a real migration"
+  ],
+  "rollback": "close draft PR or revert candidate commits; preserve base, predecessor and receipts; never delete custody history",
+  "execution": {
+    "provider_projects_observed": 2,
+    "active_target_selected": false,
+    "schema_apply": "NOT_RUN",
+    "runtime_tests": "NOT_RUN",
+    "exact_head_ci": "PENDING",
+    "receipt_state": "SOURCE_ONLY_NOT_EXECUTED"
+  },
+  "R3": {
+    "F_ok": [
+      "nested project identity, typed containment edges, append-only custody events and recursive reconstruction are specified",
+      "source, revision, names, dates, times, timezone, evidence refs and hashes have explicit fields"
+    ],
+    "F_gap": [
+      "inactive provider projects",
+      "no approved dataset or target",
+      "no backup/restore or runtime RLS test",
+      "no independent review or provider readback"
+    ],
+    "F_next": "run static SQL validation and exact-head CI on the isolated branch, then select a non-sensitive metadata-only pilot"
+  }
+}
