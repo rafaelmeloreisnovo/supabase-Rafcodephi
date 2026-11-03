@@ -10,10 +10,10 @@ DECLARE
 BEGIN
   INSERT INTO raf_private.schema_change_requests
     (request_id, provider, source_ref, source_revision, actor_ref, purpose,
-     columns_proposal)
+     proposed_table, columns_proposal)
   VALUES
     (v_req, 'other', 'fixture:test-only', 'v1', 'test-actor',
-     'synthetic validation', '[{"name":"id","type":"uuid"}]'::jsonb);
+     'synthetic validation', 'fixture_entities', '[{"name":"id","type":"uuid"}]'::jsonb);
 
   SELECT count(*) INTO v_count FROM raf_private.schema_change_events
     WHERE request_id = v_req AND kind = 'REQUESTED';
