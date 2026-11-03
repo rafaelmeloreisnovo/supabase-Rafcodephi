@@ -12,7 +12,7 @@ CREATE TABLE raf_private.drive_cloud_selection_intents_v1 (
     provider text NOT NULL DEFAULT 'GOOGLE_DRIVE'
         CHECK (provider = 'GOOGLE_DRIVE'),
     folder_id text NOT NULL
-        CHECK (folder_id ~ '^[A-Za-z0-9_-]{10,256}$'),
+        CHECK ((folder_id ~ '^[A-Za-z0-9_-]+$' AND char_length(folder_id) BETWEEN 10 AND 256)),
     folder_sha256 text NOT NULL CHECK (folder_sha256 ~ '^[0-9a-f]{64}$'),
     selection_status text NOT NULL DEFAULT 'BLOCKED_GOOGLE_OAUTH'
         CHECK (selection_status = 'BLOCKED_GOOGLE_OAUTH'),
@@ -62,7 +62,7 @@ DECLARE
     v_prior raf_private.drive_cloud_selection_intents_v1%ROWTYPE;
 BEGIN
     IF p_owner_uid IS NULL OR p_request_key IS NULL OR
-        p_folder_id IS NULL OR p_folder_id !~ '^[A-Za-z0-9_-]{10,256}$'
+        p_folder_id IS NULL OR (p_folder_id !~ '^[A-Za-z0-9_-]+$' OR char_length(p_folder_id) NOT BETWEEN 10 AND 256)
     THEN
         RAISE EXCEPTION 'INVALID_PRIVATE_SELECTION_REQUEST';
     END IF;
